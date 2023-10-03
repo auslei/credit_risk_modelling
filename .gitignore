@@ -1,0 +1,5 @@
+.env
+.DS*
+.ipynb*
+data
+home-cred*

@@ -34,6 +34,13 @@ A lightweight, reproducible pipeline for credit default prediction using Lending
 - Run tests:
   - `pytest -q`
 
+## Data Management
+- Large raw data should live in `data_local/` (ignored by Git). Keep `data/` for small samples or generated artifacts only.
+- To stage the main CSV into `data/`, use the helper:
+  - Place `loan_data_2007_2014.csv` or `loan_data_2007_2014.csv.zip` in `data_local/`.
+  - Run: `make data` (or `python -m scripts.prepare_data`).
+  - This will create `data/loan_data_2007_2014.csv` from the local copy or zip.
+
 ## Data & Features
 - Target: `label` (derived from `loan_status`). Leakage‑prone fields (IDs, location, future events, free text) are dropped.
 - Dates (`earliest_cr_line`, `issue_d`, etc.) converted to months from `2020‑01‑01` (configurable).
@@ -44,4 +51,3 @@ A lightweight, reproducible pipeline for credit default prediction using Lending
 - Splits and cross‑validation use stratification and fixed seeds.
 
 For contribution standards and PR expectations, see AGENTS.md.
-

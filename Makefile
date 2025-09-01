@@ -1,4 +1,4 @@
-.PHONY: help venv install train evaluate test clean
+.PHONY: help venv install data train evaluate test clean
 
 VENV := .venv
 PY := $(VENV)/bin/python
@@ -17,6 +17,9 @@ venv:
 install: venv
 	@$(PIP) install -r requirements.txt
 
+data: install
+	@$(PY) -m scripts.prepare_data
+
 train: install
 	@$(PY) -m scripts.train --input $(DATA) --out $(MODEL)
 
@@ -28,4 +31,3 @@ test: install
 
 clean:
 	@rm -rf artifacts .pytest_cache **/__pycache__ **/*.pyc .mypy_cache
-

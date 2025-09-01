@@ -2,3 +2,17 @@
 .DS*
 .ipynb*
 home-cred*
+node_modules/
+
+# Data files (keep directory, ignore content)
+data/**
+!data/.gitkeep
+
+# Local, untracked data store
+data_local/**
+
+# Artifacts and caches
+artifacts/**
+.pytest_cache/
+**/__pycache__
+**/*.pyc

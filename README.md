@@ -26,10 +26,12 @@ A lightweight, reproducible pipeline for credit default prediction using Lending
 
 ## Usage
 - Train model (Logistic Regression, balanced):
-  - `python -m scripts.train --input data/loan_data_2007_2014.csv --out artifacts/model.joblib`
+  - `make train` (sets `PYTHONPATH=src` automatically)
+  - Or: `PYTHONPATH=src python -m scripts.train --input data/loan_data_2007_2014.csv --out artifacts/model.joblib`
   - Prints cross‑validated AUROC and saves the fitted pipeline.
 - Evaluate model (hold‑in evaluation with consistent preprocessing):
-  - `python -m scripts.evaluate --input data/loan_data_2007_2014.csv --model artifacts/model.joblib --out artifacts/metrics.json`
+  - `make evaluate`
+  - Or: `PYTHONPATH=src python -m scripts.evaluate --input data/loan_data_2007_2014.csv --model artifacts/model.joblib --out artifacts/metrics.json`
   - Prints and saves `{\"auroc\", \"gini\", \"aupr\"}`.
 - Run tests:
   - `pytest -q`

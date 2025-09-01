@@ -8,6 +8,9 @@ DATA := data/loan_data_2007_2014.csv
 MODEL := artifacts/model.joblib
 METRICS := artifacts/metrics.json
 
+# Ensure local package is importable without install
+export PYTHONPATH := src:$(PYTHONPATH)
+
 help:
 	@echo "Available targets: venv, install, train, evaluate, test, clean"
 

@@ -10,6 +10,14 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
 
 
+def _make_ohe() -> OneHotEncoder:
+    # sklearn >=1.2 uses sparse_output, older versions use sparse
+    try:
+        return OneHotEncoder(handle_unknown="ignore", sparse_output=False)
+    except TypeError:
+        return OneHotEncoder(handle_unknown="ignore", sparse=False)
+
+
 def build_preprocessor(cat_cols: List[str], num_cols: List[str]) -> ColumnTransformer:
     numeric_pipeline = Pipeline(
         steps=[
@@ -21,7 +29,7 @@ def build_preprocessor(cat_cols: List[str], num_cols: List[str]) -> ColumnTransf
     categorical_pipeline = Pipeline(
         steps=[
             ("impute", SimpleImputer(strategy="most_frequent")),
-            ("onehot", OneHotEncoder(handle_unknown="ignore", sparse=False)),
+            ("onehot", _make_ohe()),
         ]
     )
 
@@ -41,4 +49,3 @@ def get_feature_names(preprocessor: ColumnTransformer, cat_cols: List[str], num_
     cat_encoder = preprocessor.named_transformers_["cat"].named_steps["onehot"]
     cat_features = cat_encoder.get_feature_names_out(cat_cols).tolist()
     return num_features + cat_features
-
